@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    env: test
+  name: express-hw-service
+  namespace: ns-ignite.dev-test
+spec:
+  type: NodePort
+  ports:
+    - port: 8008
+      NodePort: 30256
+  selector:
+    app: express-hw
