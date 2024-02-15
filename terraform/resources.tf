@@ -49,13 +49,17 @@ resource "kubernetes_deployment_v1" "express-hw" {
               memory = "250Mi"
             }
           }
+          env {
+            name = HTTP_LISTEN_PORT
+            value = 8008
+          }
 
           liveness_probe {
             tcp_socket {
               port = 8008
             }
 
-            initial_delay_seconds = 30
+            initial_delay_seconds = 20
             period_seconds        = 15
             timeout_seconds = 2
           }
@@ -65,7 +69,7 @@ resource "kubernetes_deployment_v1" "express-hw" {
               port = 8008
             }
 
-            initial_delay_seconds = 30
+            initial_delay_seconds = 20
             period_seconds        = 15
             timeout_seconds = 10
           }
@@ -111,11 +115,11 @@ resource "kubernetes_namespace_v1" "observability" {
 resource "helm_release" "prometheus" {
   name       = "prometheus-stack"
   repository = "https://prometheus-community.github.io/helm-charts"
-  chart      = "prometheus-community/kube-prometheus-stack"
+  chart      = "kube-prometheus-stack"
   namespace = "observability"
 
   values = [
-    "${file("kubernetes/values.yml")}"
+    "${file("../kubernetes/values.yml")}"
   ]
 
 }

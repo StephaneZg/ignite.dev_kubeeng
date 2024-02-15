@@ -1,5 +1,5 @@
 variable "namespace" {
     description = "Name of the namespace"
     type = string
-    default = "ns-ignite.dev-test"
+    default = "ns-ignitedev-test"
 }
