@@ -1,3 +1,5 @@
+# Simple express Application deployment
+
 resource "kubernetes_namespace_v1" "express-hw" {
   metadata {
     annotations = {
@@ -50,7 +52,7 @@ resource "kubernetes_deployment_v1" "express-hw" {
             }
           }
           env {
-            name = HTTP_LISTEN_PORT
+            name = "HTTP_LISTEN_PORT"
             value = 8008
           }
 
@@ -79,6 +81,8 @@ resource "kubernetes_deployment_v1" "express-hw" {
   }
 }
 
+# Observability Ressources
+
 resource "kubernetes_service" "express-hw" {
   metadata {
     name = "express-hw-service"
@@ -90,10 +94,10 @@ resource "kubernetes_service" "express-hw" {
     }
     port {
       port        = 8008
-      node_port = 30256
+      target_port = 8008
     }
 
-    type = "NodePort"
+    type = "ClusterIP"
   }
 }
 
