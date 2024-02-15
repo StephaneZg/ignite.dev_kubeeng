@@ -19,7 +19,7 @@ echo \
 sudo apt-get update
 
 # Install Docker Engine
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin -y
 
 # Download the release base on the system architecture
 if [ "$architecture" = "x86_64" ]; then
@@ -43,4 +43,4 @@ echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.
 sudo apt-get update
 sudo apt-get install -y kubectl
 
-echo ${HOME}/.kube/config > config/kubeconfig
+cat ${HOME}/.kube/config > config/kubeconfig

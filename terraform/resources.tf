@@ -1,4 +1,4 @@
-resource "kubernetes_namespace_v1" "this" {
+resource "kubernetes_namespace_v1" "express-hw" {
   metadata {
     annotations = {
       name = var.namespace
@@ -94,7 +94,7 @@ resource "kubernetes_service" "express-hw" {
 }
 
 
-resource "kubernetes_namespace_v1" "this" {
+resource "kubernetes_namespace_v1" "observability" {
   metadata {
     annotations = {
       name = "observability"
@@ -112,6 +112,7 @@ resource "helm_release" "prometheus" {
   name       = "prometheus-stack"
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "prometheus-community/kube-prometheus-stack"
+  namespace = "observability"
 
   values = [
     "${file("kubernetes/values.yml")}"
